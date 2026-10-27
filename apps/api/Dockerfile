@@ -8,11 +8,15 @@ RUN git clone --depth 1 --single-branch --branch 2.0.2 \
       https://github.com/Brainicism/bgutil-ytdlp-pot-provider.git /pot \
     && cd /pot/server && npm ci && npx tsc
 
-# The plain minimal frontend (one page, no design system).
+# The plain minimal frontend (one page, no design system). Installing pnpm directly
+# (not via `corepack enable`) because apps/web/package.json has no "packageManager"
+# field pinning a version — without one, Corepack has nothing telling it which pnpm to
+# fetch and refuses to auto-download one non-interactively, failing the build.
 FROM node:22-bookworm AS web
 WORKDIR /web
+RUN npm install -g pnpm@10.17.1
 COPY apps/web/package.json ./
-RUN corepack enable && pnpm install
+RUN pnpm install
 COPY apps/web .
 RUN pnpm build
 

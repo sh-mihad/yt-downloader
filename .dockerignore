@@ -1,0 +1,14 @@
+node_modules
+**/node_modules
+.venv
+**/.venv
+.git
+dist
+**/dist
+data
+apps/api/data
+web-dist
+*.log
+__pycache__
+**/__pycache__
+.env
