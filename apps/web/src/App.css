@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  background: #0f1115;
+  color: #e7e7ea;
+}
+
+.wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 16px 64px;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.hint {
+  color: #9a9aa5;
+  font-size: 14px;
+  margin-top: 0;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+}
+
+input,
+select {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2a2d36;
+  background: #161922;
+  color: inherit;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #3a7bfd;
+  background: #3a7bfd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff6b6b;
+  font-size: 14px;
+}
+
+.muted {
+  color: #9a9aa5;
+  font-size: 13px;
+}
+
+.info {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #2a2d36;
+  border-radius: 12px;
+}
+
+.info img {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.info-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.info-body h2 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.progress {
+  margin-top: 24px;
+}
+
+.bar {
+  height: 10px;
+  border-radius: 6px;
+  background: #1c1f28;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: #3a7bfd;
+  transition: width 0.3s ease;
+}

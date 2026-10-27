@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: yt-downloader-poc
+    env: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    plan: starter
+    healthCheckPath: /api/health
+    envVars:
+      - key: YOUTUBE_COOKIES
+        sync: false
+      - key: YOUTUBE_PROXY
+        sync: false
+      - key: MEDIA_JOBS
+        value: "2"
+      - key: VIDEO_HWACCEL
+        value: "off"
