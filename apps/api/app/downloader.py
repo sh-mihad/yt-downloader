@@ -11,6 +11,7 @@ is unchanged, since reproducing that behavior faithfully is the whole point.
 import contextlib
 import json
 import logging
+import os
 import re
 import shutil
 import subprocess
@@ -221,6 +222,15 @@ def get_ydl_base_opts(include_cookies: bool = True) -> dict[str, Any]:
     # recognized and yt-dlp still falls back to the ambient env vars. "__noproxy__" is
     # the actual sentinel the parser converts "" into, so use it directly.
     opts["proxy"] = settings.youtube_proxy or "__noproxy__"
+    log.info(
+        "ydl proxy opt=%r youtube_proxy_setting=%r env HTTP_PROXY=%r HTTPS_PROXY=%r http_proxy=%r https_proxy=%r",
+        opts["proxy"],
+        settings.youtube_proxy,
+        os.environ.get("HTTP_PROXY"),
+        os.environ.get("HTTPS_PROXY"),
+        os.environ.get("http_proxy"),
+        os.environ.get("https_proxy"),
+    )
 
     return opts
 
