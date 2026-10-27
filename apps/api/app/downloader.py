@@ -210,11 +210,16 @@ def get_ydl_base_opts(include_cookies: bool = True) -> dict[str, Any]:
         if cookie_file:
             opts["cookiefile"] = str(cookie_file)
 
-    import os
-
-    proxy = getattr(settings, "youtube_proxy", "") or os.environ.get("HTTP_PROXY") or os.environ.get("HTTPS_PROXY")
-    if proxy:
-        opts["proxy"] = proxy
+    # Explicit opt-in only (settings.youtube_proxy / YOUTUBE_PROXY). yt-dlp's own
+    # networking layer falls back to the ambient HTTP_PROXY/HTTPS_PROXY env vars
+    # whenever the "proxy" key is absent entirely (its documented way to disable that
+    # is an *empty string*, not omitting the key) — on Render those env vars turned out
+    # to be set to an unreachable address (platform-injected, nothing we configured),
+    # so every YouTube request silently routed through a dead proxy and hung for 30s
+    # per attempt x3 fallback clients instead of ever reaching YouTube. Always setting
+    # the key — "" when youtube_proxy is unset — forces yt-dlp to ignore the ambient
+    # env vars and connect directly.
+    opts["proxy"] = getattr(settings, "youtube_proxy", "")
 
     return opts
 
